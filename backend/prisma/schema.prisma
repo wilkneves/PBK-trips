@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model TripRequest {
+  id             String   @id @default(uuid())
+  requesterName  String
+  origin         String
+  destination    String
+  departureAt    DateTime
+  returnAt       DateTime
+  purpose        String
+  passengerCount Int
+  status         String   @default("pending")
+  createdAt      DateTime @default(now())
+
+  @@map("trip_requests")
+}
