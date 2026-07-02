@@ -4,11 +4,10 @@
   "description": "",
   "main": "dist/src/server.js",
   "scripts": {
-    "postinstall": "prisma generate",
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/src/server.js",
-    "init:db": "prisma migrate deploy && tsx scripts/init-db.ts",
+    "init:db": "prisma generate && prisma migrate deploy && tsx scripts/init-db.ts",
     "test": "vitest run",
     "lint": "eslint .",
     "format": "prettier --write .",
