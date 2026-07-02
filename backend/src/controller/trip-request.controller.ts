@@ -18,19 +18,29 @@ export class TripRequestController {
 
     const tripRequest = await this.service.findById(id);
 
-      if (!tripRequest) {
-        return reply.status(404).send({
-          success: false,
-          error: {
-            code: "TRIP_REQUEST_NOT_FOUND",
-            message: "Trip request not found",
-          },
-        });
-      }
+    return reply.status(200).send({
+      success: true,
+      data: tripRequest,
+    });
+  }
 
-      return reply.status(200).send({
-        success: true,
-        data: tripRequest,
-      });
-    }
+  async create(request: FastifyRequest, reply: FastifyReply) {
+    const tripRequest = await this.service.create(request.body as Record<string, unknown>);
+
+    return reply.status(201).send({
+      success: true,
+      data: tripRequest,
+    });
+  }
+
+  async cancel(request: FastifyRequest, reply: FastifyReply) {
+    const { id } = request.params as { id: string };
+
+    const tripRequest = await this.service.cancel(id);
+
+    return reply.status(200).send({
+      success: true,
+      data: tripRequest,
+    });
+  }
 }
