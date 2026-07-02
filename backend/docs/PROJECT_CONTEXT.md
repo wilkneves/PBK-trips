@@ -191,22 +191,23 @@ Docker Compose
 - `GET /health`
 - `GET /trip-requests`
 - `GET /trip-requests/:id`
+- `POST /trip-requests`
+- `PATCH /trip-requests/:id/cancel`
+- `GET /holidays/:year`
+- Centralized error handling (`AppError` + Fastify global error handler)
+- BrasilAPI integration (real-time consultation, no seeding/hardcoding)
 - `init:db`
 - Prisma migration
 - Seed with 10 records
+- Automated tests (Vitest, BrasilAPI stubbed via fake `fetch`)
+- `README.md`
+- `.env.example`
 
 ---
 
 ### Pending
 
-- Centralized error handling
-- `POST /trip-requests`
-- `PATCH /trip-requests/:id/cancel`
-- `GET /holidays/:year`
-- BrasilAPI integration
-- Automated tests
-- `README`
-- `.env.example`
+Nothing pending for the assessment's mandatory scope.
 
 ---
 

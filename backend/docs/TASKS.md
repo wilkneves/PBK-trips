@@ -34,7 +34,7 @@
 - [x] Generate Prisma Client
 - [x] Create `init:db`
 - [x] Populate database with 10 records
-- [ ] Create `.env.example`
+- [x] Create `.env.example`
 
 ---
 
@@ -43,64 +43,64 @@
 - [x] `GET /health`
 - [x] `GET /trip-requests`
 - [x] `GET /trip-requests/:id`
-- [ ] `POST /trip-requests`
-- [ ] `PATCH /trip-requests/:id/cancel`
-- [ ] `GET /holidays/:year`
+- [x] `POST /trip-requests`
+- [x] `PATCH /trip-requests/:id/cancel`
+- [x] `GET /holidays/:year`
 
 ---
 
 ## Business Rules
 
-- [ ] Validate required fields
-- [ ] Validate ISO 8601 dates
-- [ ] Normalize dates
-- [ ] Validate `returnAt >= departureAt`
-- [ ] Validate `passengerCount > 0`
-- [ ] Validate national holidays
-- [ ] Prevent duplicate cancellation
+- [x] Validate required fields
+- [x] Validate ISO 8601 dates
+- [x] Normalize dates
+- [x] Validate `returnAt >= departureAt`
+- [x] Validate `passengerCount > 0`
+- [x] Validate national holidays
+- [x] Prevent duplicate cancellation
 
 ---
 
 ## Error Handling
 
-- [ ] Create `AppError`
-- [ ] Global error handler
-- [ ] Standardized errors
-- [ ] Internal error handling
+- [x] Create `AppError`
+- [x] Global error handler
+- [x] Standardized errors
+- [x] Internal error handling
 
 ---
 
 ## BrasilAPI
 
-- [ ] Holidays client
-- [ ] `GET /holidays/:year`
-- [ ] Cache or on-demand mirror
-- [ ] Handle unavailable API
-- [ ] Block holiday trips
+- [x] Holidays client
+- [x] `GET /holidays/:year`
+- [x] Real-time consultation
+- [x] Handle unavailable API
+- [x] Block holiday trips
 
 ---
 
 ## Automated Tests
 
-- [ ] Valid trip creation
-- [ ] Invalid return date
-- [ ] Invalid passenger count
-- [ ] Holiday validation
-- [ ] Trip request not found
-- [ ] Cancel trip request
-- [ ] Cancel already canceled request
+- [x] Valid trip creation
+- [x] Invalid return date
+- [x] Invalid passenger count
+- [x] Holiday validation
+- [x] Trip request not found
+- [x] Cancel trip request
+- [x] Cancel already canceled request
 
 ---
 
 ## Documentation
 
-- [ ] `README.md`
+- [x] `README.md`
 - [x] `PROJECT_CONTEXT.md`
 - [x] `API_SPEC.md`
 - [x] `ARCHITECTURE.md`
 - [x] `DECISIONS.md`
 - [x] `TASKS.md`
-- [ ] `.env.example`
+- [x] `.env.example`
 
 ---
 
@@ -108,18 +108,11 @@
 
 - [x] Git initialized
 - [x] First commit
-- [ ] Incremental commits
-- [ ] Final release commit
+- [x] Incremental commits
+- [x] Final release commit
 
 ---
 
 ## Next Milestone
 
-1. Centralized error handling
-2. `POST /trip-requests`
-3. `PATCH /trip-requests/:id/cancel`
-4. Holidays endpoint
-5. BrasilAPI integration
-6. Automated tests
-7. `README.md`
-8. Final review
+All milestones for the assessment scope are complete.
