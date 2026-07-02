@@ -96,8 +96,11 @@ The values in `.env.example` are already functional and match the service define
 ## 3. Start the database (Docker Compose)
 
 ```bash
-docker compose up -d
+docker compose up -d --wait
 ```
+
+The `--wait` flag blocks until the PostgreSQL container passes its health check, so the database is
+actually ready to accept connections before you continue to the next step.
 
 This starts a PostgreSQL 17 container (`backend-postgres`) with database `backend_db`, exposed on
 port `5432`, matching `DATABASE_URL` in `.env.example`.
