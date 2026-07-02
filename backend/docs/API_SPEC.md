@@ -198,11 +198,11 @@ GET https://brasilapi.com.br/api/feriados/v1/{year}
 
 ## Error Codes
 
-| Code | HTTP |
-|------|------|
-| VALIDATION_ERROR | 400 |
-| TRIP_REQUEST_NOT_FOUND | 404 |
-| TRIP_REQUEST_ALREADY_CANCELED | 409 |
-| HOLIDAY_TRIP_NOT_ALLOWED | 409 |
-| HOLIDAYS_API_UNAVAILABLE | 502 |
-| INTERNAL_SERVER_ERROR | 500 |
+| Code                          | HTTP |
+| ----------------------------- | ---- |
+| VALIDATION_ERROR              | 400  |
+| TRIP_REQUEST_NOT_FOUND        | 404  |
+| TRIP_REQUEST_ALREADY_CANCELED | 409  |
+| HOLIDAY_TRIP_NOT_ALLOWED      | 409  |
+| HOLIDAYS_API_UNAVAILABLE      | 502  |
+| INTERNAL_SERVER_ERROR         | 500  |

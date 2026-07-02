@@ -2,19 +2,21 @@
 
 ## Overview
 
-The project follows a layered architecture that separates responsibilities between HTTP handling, business rules, persistence, and external integrations.
+The project separates responsibilities between HTTP handling, input validation, business rules,
+persistence, and external integrations. There is no separate controller layer: route handlers call
+services directly and build responses using shared helpers.
 
 ```
 HTTP Request
       │
       ▼
-Routes
+Routes (http/routes)
       │
       ▼
-Controllers
+Schemas (http/schemas) — input validation/parsing
       │
       ▼
-Services
+Services — business rules
       │
       ▼
 Repositories
@@ -28,61 +30,82 @@ PostgreSQL
 
 ---
 
-## Target Project Structure
+## Project Structure
 
 ```
-src/
-├── app.ts
-├── server.ts
-├── controller/
-├── services/
-├── repositories/
-├── routes/
-├── database/
-└── errors/
-
-prisma/
-docker-compose.yml
+backend/
+├── scripts/
+│   └── init-db.ts
+├── src/
+│   ├── app.ts
+│   ├── server.ts
+│   ├── config/
+│   │   └── env.ts
+│   ├── domain/
+│   │   └── trip-request.ts
+│   ├── errors/
+│   │   ├── app-error.ts
+│   │   ├── error-definitions.ts
+│   │   └── error-handler.ts
+│   ├── http/
+│   │   ├── responses.ts
+│   │   ├── routes/
+│   │   │   ├── trip-requests-routes.ts
+│   │   │   └── holidays-routes.ts
+│   │   └── schemas/
+│   │       └── trip-request-schemas.ts
+│   ├── integrations/
+│   │   └── holidays-client.ts
+│   ├── repositories/
+│   │   └── trip-request.repository.ts
+│   ├── services/
+│   │   ├── trip-request.service.ts
+│   │   └── holiday.service.ts
+│   └── database/
+│       └── prisma.ts
+├── tests/
+├── prisma/
+└── docker-compose.yml
 ```
 
 ---
 
 ## Layers
 
-### Routes
+### Config
+
+Centralizes reading and typing environment variables (`NODE_ENV`, `PORT`, `DATABASE_URL`,
+`HOLIDAYS_API_BASE_URL`).
+
+### Domain
+
+Shared TypeScript types describing a trip request and its creation input.
+
+### Routes (`http/routes`)
 
 Responsibilities:
 
 - Register HTTP routes
-- Connect endpoints to controllers
-
-No business logic.
-
----
-
-### Controllers
-
-Responsibilities:
-
-- Receive HTTP requests
-- Call services
-- Return standardized HTTP responses
+- Parse the request via the corresponding schema
+- Call the relevant service
+- Build the standardized HTTP response
 
 No business rules.
 
----
+### Schemas (`http/schemas`)
+
+Responsibilities:
+
+- Validate and parse raw request input (required fields, ISO 8601 dates, passenger count,
+  `returnAt >= departureAt`)
+- Convert dates to UTC `Date` instances before they reach the service layer
 
 ### Services
 
 Responsibilities:
 
-- Business rules
-- Data validation
-- Holiday validation
-- Date validation
-- Passenger validation
-
----
+- Business rules that require persistence or external calls (holiday check, cancellation rules)
+- Orchestrate repositories and integrations
 
 ### Repositories
 
@@ -92,34 +115,25 @@ Responsibilities:
 - Prisma queries
 - CRUD operations
 
----
-
 ### Database
 
 Responsibilities:
 
-- Prisma Client
-- Database initialization
-- Database connection
-
----
+- Prisma Client instantiation
 
 ### Errors
 
 Responsibilities:
 
-- Centralized error handling
-- Standardized error responses
+- `AppError` and the `ErrorCode` → `{ statusCode, message }` mapping (`error-definitions.ts`)
+- Centralized Fastify error handler and not-found handler
 
----
-
-### External Services
+### Integrations
 
 Responsibilities:
 
-- BrasilAPI integration
-- Holiday lookup
-- External API isolation
+- BrasilAPI holidays client
+- External API isolation (real-time consultation, no seeding/hardcoding)
 
 ---
 
@@ -197,7 +211,8 @@ model TripRequest {
 - camelCase variables
 - PascalCase classes
 - kebab-case files
-- Business rules inside Services
-- Database access inside Repositories
-- HTTP logic inside Controllers
+- Input validation inside `http/schemas`
+- Business rules inside `services`
+- Database access inside `repositories`
 - Centralized error handling
+- ESLint + Prettier enforced via `npm run lint` / `npm run format`

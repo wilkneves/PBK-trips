@@ -39,21 +39,29 @@ npm (used throughout this README; all commands run from the `backend/` folder).
 ## Project structure
 
 ```
-backend/          → REST API source code
-backend/docs/      → Technical documentation (architecture, decisions, API spec)
-backend/prisma/     → Prisma schema and migrations
+backend/                     → REST API source code
+backend/docs/                 → Technical documentation (architecture, decisions, API spec)
+backend/prisma/                → Prisma schema and migrations
+backend/scripts/
+  init-db.ts                  → Database initialization/seed script
 backend/src/
-  app.ts           → Fastify instance, route/error-handler registration
-  server.ts        → HTTP server bootstrap
-  routes/          → HTTP route definitions
-  controller/       → Request/response handling
-  services/         → Business rules and validation
-  repositories/      → Database access (Prisma)
-  external/         → BrasilAPI client
-  errors/           → AppError, error codes, centralized error handler
-  utils/            → Shared validation helpers
-  database/         → Prisma client and init:db script
-backend/test/       → Vitest automated tests
+  app.ts                      → Fastify instance, error-handler/route registration
+  server.ts                   → HTTP server bootstrap
+  config/
+    env.ts                     → Typed environment variables
+  domain/
+    trip-request.ts             → Shared TripRequest types
+  http/
+    responses.ts                → successResponse/errorResponse helpers
+    routes/                      → Route handlers (HTTP + calling services)
+    schemas/                     → Request validation/parsing
+  services/                    → Business rules (holiday check, cancellation rules)
+  repositories/                 → Database access (Prisma)
+  integrations/                 → BrasilAPI holidays client
+  errors/                       → AppError, error definitions, centralized error handler
+  database/
+    prisma.ts                   → Prisma client
+backend/tests/                 → Vitest automated tests
 ```
 
 ## Prerequisites
@@ -123,8 +131,16 @@ npm test
 
 Tests run with Vitest against the same PostgreSQL database configured by `DATABASE_URL` (the
 `trip_requests` table is cleaned between tests). Calls to BrasilAPI are stubbed via a fake `fetch`
-implementation (`test/helpers/holidays-mock.ts`), so the suite does not depend on the real BrasilAPI
+implementation (`tests/helpers/holidays-mock.ts`), so the suite does not depend on the real BrasilAPI
 being available.
+
+## Code quality
+
+```bash
+npm run lint           # ESLint
+npm run format          # Prettier — write
+npm run format:check     # Prettier — check only
+```
 
 ## Response format
 

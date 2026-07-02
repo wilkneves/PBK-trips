@@ -141,12 +141,12 @@ The application must never use hardcoded holidays.
 
 ### Decision
 
-Layered Architecture
+Layered structure without a dedicated controller layer
 
 ```
-Routes
+Routes (http/routes)
     ↓
-Controllers
+Schemas (http/schemas)
     ↓
 Services
     ↓
@@ -159,7 +159,9 @@ PostgreSQL
 
 ### Reason
 
-Clear separation of responsibilities.
+Clear separation of responsibilities. Request parsing/validation lives in `http/schemas`, so route
+handlers stay thin (parse input, call the service, send the response) without needing a separate
+controller class per resource.
 
 ---
 
@@ -187,17 +189,29 @@ Repositories isolate persistence from business logic.
 
 ---
 
+## Input Validation
+
+### Decision
+
+Request validation and parsing stay inside `http/schemas`.
+
+Examples:
+
+- Required field presence
+- ISO 8601 date parsing and UTC normalization
+- Passenger count and date-range validation
+
+---
+
 ## Business Rules
 
 ### Decision
 
-Business rules stay inside Services.
+Business rules that require persistence or external calls stay inside Services.
 
 Examples:
 
-- Passenger validation
-- Date validation
-- Holiday validation
+- Holiday validation (BrasilAPI)
 - Cancellation validation
 
 ---
@@ -206,15 +220,15 @@ Examples:
 
 ### Decision
 
-Controllers only handle HTTP.
+Route handlers only handle HTTP.
 
-Controllers should:
+Route handlers should:
 
-- Receive requests
+- Parse the request via a schema
 - Call services
-- Return responses
+- Return responses via the shared `successResponse`/`errorResponse` helpers
 
-Controllers should NOT:
+Route handlers should NOT:
 
 - Access the database
 - Implement business rules
@@ -267,6 +281,19 @@ docs: update project documentation
 
 chore: configure project dependencies
 ```
+
+---
+
+## Code Quality Tooling
+
+### Decision
+
+ESLint (`typescript-eslint` recommended rules) + Prettier.
+
+### Reason
+
+Consistent formatting and basic static analysis (unused variables, consistent type imports) across
+the team. `npm run lint`, `npm run format`, and `npm run format:check` are available.
 
 ---
 

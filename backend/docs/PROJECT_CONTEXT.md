@@ -10,13 +10,13 @@ The objective is to develop a REST API for managing institutional trip requests 
 
 ## Project Information
 
-| Item | Description |
-|------|-------------|
-| Institution | Universidade Estadual do Piauí (UESPI) |
-| Course | Programação Backend |
-| Professor | Eyder Rios |
-| Assessment | 2nd Practical Assessment |
-| Project Type | Backend REST API |
+| Item         | Description                            |
+| ------------ | -------------------------------------- |
+| Institution  | Universidade Estadual do Piauí (UESPI) |
+| Course       | Programação Backend                    |
+| Professor    | Eyder Rios                             |
+| Assessment   | 2nd Practical Assessment               |
+| Project Type | Backend REST API                       |
 
 ---
 
@@ -214,8 +214,10 @@ Nothing pending for the assessment's mandatory scope.
 ## Development Guidelines
 
 - Use English for all code identifiers.
+- Keep input validation inside `http/schemas`.
 - Keep business rules inside Services.
 - Keep database access inside Repositories.
-- Keep HTTP logic inside Controllers.
+- Keep HTTP logic inside `http/routes` route handlers.
 - Use centralized error handling.
 - Follow Conventional Commits.
+- Run `npm run lint` and `npm run format:check` before pushing.

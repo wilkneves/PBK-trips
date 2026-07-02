@@ -5,6 +5,7 @@ Projeto avaliativo da disciplina Programação Backend - UESPI.
 Objetivo: implementar uma API REST em TypeScript para gerenciamento de solicitações de viagem institucional.
 
 Stack usada:
+
 - Node.js
 - TypeScript
 - Fastify
@@ -14,6 +15,7 @@ Stack usada:
 - Git/GitHub
 
 Estado atual:
+
 - Ambiente configurado no MacBook
 - Projeto Node criado
 - TypeScript configurado
@@ -29,6 +31,7 @@ Estado atual:
 - Script `init:db` populando 10 registros
 
 Requisitos principais:
+
 - POST /trip-requests
 - GET /trip-requests
 - GET /trip-requests/:id
@@ -47,6 +50,7 @@ Requisitos principais:
 - Histórico de commits claro em inglês
 
 Observações importantes:
+
 - Usar inglês para código, erros, mensagens e commits
 - Manter `strict: true` no TypeScript
 - Não versionar `.env`
@@ -61,6 +65,7 @@ Observações importantes:
   - `npm run dev`
 
 Próximo passo sugerido:
+
 - Padronizar nomes de pastas/arquivos
 - Implementar tratamento centralizado de erros
 - Depois implementar `POST /trip-requests`
