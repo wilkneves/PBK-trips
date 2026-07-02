@@ -1,3 +1,4 @@
+import { env } from "../config/env";
 import { AppError } from "../errors/app-error";
 
 export interface Holiday {
@@ -7,21 +8,15 @@ export interface Holiday {
 }
 
 export class HolidaysClient {
-  private get baseUrl(): string {
-    const baseUrl = process.env.HOLIDAYS_API_BASE_URL;
-
-    if (!baseUrl) {
+  async getByYear(year: number): Promise<Holiday[]> {
+    if (!env.holidaysApiBaseUrl) {
       throw new AppError("HOLIDAYS_API_UNAVAILABLE", "Holidays API base URL is not configured");
     }
 
-    return baseUrl;
-  }
-
-  async getByYear(year: number): Promise<Holiday[]> {
     let response: Response;
 
     try {
-      response = await fetch(`${this.baseUrl}/api/feriados/v1/${year}`);
+      response = await fetch(`${env.holidaysApiBaseUrl}/api/feriados/v1/${year}`);
     } catch {
       throw new AppError("HOLIDAYS_API_UNAVAILABLE", "Failed to reach the national holidays API");
     }

@@ -1,13 +1,14 @@
-import { ERROR_STATUS_MAP, type ErrorCode } from "./error-codes";
+import { errorDefinitions, type ErrorCode } from "./error-definitions";
 
 export class AppError extends Error {
   readonly code: ErrorCode;
   readonly statusCode: number;
 
-  constructor(code: ErrorCode, message: string) {
-    super(message);
+  constructor(code: ErrorCode, message?: string) {
+    const definition = errorDefinitions[code];
+    super(message ?? definition.message);
     this.name = "AppError";
     this.code = code;
-    this.statusCode = ERROR_STATUS_MAP[code];
+    this.statusCode = definition.statusCode;
   }
 }

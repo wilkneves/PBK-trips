@@ -1,5 +1,4 @@
-import "dotenv/config";
-import { prisma } from "./prisma";
+import { prisma } from "../src/database/prisma";
 
 async function main() {
   await prisma.tripRequest.deleteMany();
@@ -95,8 +94,8 @@ async function main() {
         returnAt: new Date("2026-12-03T18:00:00.000Z"),
         purpose: "Seminar",
         passengerCount: 1,
-      }
-    ]
+      },
+    ],
   });
 
   console.log("Database initialized successfully.");

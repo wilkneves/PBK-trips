@@ -1,17 +1,8 @@
 import { prisma } from "../database/prisma";
-
-interface CreateTripRequestData {
-  requesterName: string;
-  origin: string;
-  destination: string;
-  departureAt: Date;
-  returnAt: Date;
-  purpose: string;
-  passengerCount: number;
-}
+import type { CreateTripRequestInput, TripRequest } from "../domain/trip-request";
 
 export class TripRequestRepository {
-  async findAll() {
+  async findAll(): Promise<TripRequest[]> {
     return prisma.tripRequest.findMany({
       orderBy: {
         createdAt: "desc",
@@ -19,7 +10,7 @@ export class TripRequestRepository {
     });
   }
 
-  async findById(id: string) {
+  async findById(id: string): Promise<TripRequest | null> {
     return prisma.tripRequest.findUnique({
       where: {
         id,
@@ -27,11 +18,11 @@ export class TripRequestRepository {
     });
   }
 
-  async create(data: CreateTripRequestData) {
+  async create(data: CreateTripRequestInput): Promise<TripRequest> {
     return prisma.tripRequest.create({ data });
   }
 
-  async updateStatus(id: string, status: string) {
+  async updateStatus(id: string, status: string): Promise<TripRequest> {
     return prisma.tripRequest.update({
       where: { id },
       data: { status },

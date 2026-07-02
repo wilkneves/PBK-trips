@@ -1,5 +1,5 @@
 import { vi } from "vitest";
-import type { Holiday } from "../../src/external/holidays-client";
+import type { Holiday } from "../../src/integrations/holidays-client";
 
 export function mockHolidaysApi(holidaysByYear: Record<number, Holiday[]>) {
   vi.stubGlobal(

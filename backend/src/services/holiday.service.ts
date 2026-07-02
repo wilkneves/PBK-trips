@@ -1,4 +1,4 @@
-import { HolidaysClient, type Holiday } from "../external/holidays-client";
+import { HolidaysClient, type Holiday } from "../integrations/holidays-client";
 
 export class HolidayService {
   private client = new HolidaysClient();

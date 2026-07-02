@@ -48,7 +48,7 @@ describe("POST /trip-requests", () => {
   });
 
   it("rejects when required fields are missing", async () => {
-    const { requesterName, ...incomplete } = validPayload;
+    const { requesterName: _requesterName, ...incomplete } = validPayload;
 
     const response = await createTripRequest(incomplete);
 
@@ -140,7 +140,10 @@ describe("PATCH /trip-requests/:id/cancel", () => {
     const created = (await createTripRequest()).json().data;
 
     await app.inject({ method: "PATCH", url: `/trip-requests/${created.id}/cancel` });
-    const response = await app.inject({ method: "PATCH", url: `/trip-requests/${created.id}/cancel` });
+    const response = await app.inject({
+      method: "PATCH",
+      url: `/trip-requests/${created.id}/cancel`,
+    });
 
     expect(response.statusCode).toBe(409);
     expect(response.json().error.code).toBe("TRIP_REQUEST_ALREADY_CANCELED");
